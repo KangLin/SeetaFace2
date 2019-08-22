@@ -20,8 +20,11 @@ public:
     
 private slots:
     void on_actionStart_triggered();
-    
     void on_actionStop_triggered();
+    
+private:
+    int CamerOrientation(const QCamera camera);
+    int CamerOrientation(const QCameraInfo cameraInfo);
     
 private:
     Ui::MainWindow *ui;

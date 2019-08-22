@@ -26,7 +26,7 @@ int main()
     //set face detector's min face size
     engine.FD.set( seeta::FaceDetector::PROPERTY_MIN_FACE_SIZE, 80 );
 
-    std::vector<std::string> GalleryImageFilename = { "1.jpg" };
+    std::vector<std::string> GalleryImageFilename = { "1.jpg", "2.jpg" };
     std::vector<int64_t> GalleryIndex( GalleryImageFilename.size() );
     for( size_t i = 0; i < GalleryImageFilename.size(); ++i )
     {

@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include <QCameraInfo>
+#include <QGuiApplication>
+#include <QScreen>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     
     bool check = connect(&m_CaptureFrame, SIGNAL(sigCaptureFrame(const QVideoFrame &)),
                          &m_Display, SLOT(slotDisplay(const QVideoFrame &)));
+    
+    m_Display.SetCameraAngle(CamerOrientation(QCameraInfo::availableCameras().at(0)));
     Q_ASSERT(check);
 }
 
@@ -36,4 +40,28 @@ void MainWindow::on_actionStart_triggered()
 void MainWindow::on_actionStop_triggered()
 {
     m_pCamera->stop();
+}
+
+int MainWindow::CamerOrientation(const QCameraInfo cameraInfo)
+{
+    // Get the current display orientation
+    const QScreen *screen = QGuiApplication::primaryScreen();
+    const int screenAngle = screen->angleBetween(screen->nativeOrientation(), screen->orientation());
+    int rotation;
+    if (cameraInfo.position() == QCamera::BackFace) {
+        rotation = (cameraInfo.orientation() - screenAngle) % 360;
+    } else {
+        // Front position, compensate the mirror
+        rotation = (360 - cameraInfo.orientation() + screenAngle) % 360;
+    }
+    int a = cameraInfo.orientation();
+    qDebug() << "Camer angle:" << a << rotation;
+    return rotation;
+}
+
+int MainWindow::CamerOrientation(const QCamera camera)
+{
+    QCameraInfo cameraInfo(camera); // needed to get the camera sensor position and orientation
+    
+    return CamerOrientation(cameraInfo);
 }

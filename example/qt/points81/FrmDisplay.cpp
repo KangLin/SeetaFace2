@@ -7,6 +7,7 @@ CFrmDisplay::CFrmDisplay(QWidget *parent) :
     ui(new Ui::CFrmDisplay)
 {
     ui->setupUi(this);
+    m_Rotation = 0;
 }
 
 CFrmDisplay::~CFrmDisplay()
@@ -41,7 +42,15 @@ void CFrmDisplay::paintEvent(QPaintEvent *event)
                          m_VideoFrame.height(),
                          m_VideoFrame.width() << 2,
                          f);
+            if(m_Rotation)
+                image = image.transformed(QTransform().rotate(m_Rotation));
             painter.drawImage(this->rect(), image);
         }while(0);
         m_VideoFrame.unmap();
+}
+
+int CFrmDisplay::SetCameraAngle(int rotation)
+{
+    m_Rotation = rotation;
+    return 0;
 }

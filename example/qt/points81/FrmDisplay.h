@@ -16,6 +16,8 @@ public:
     explicit CFrmDisplay(QWidget *parent = nullptr);
     ~CFrmDisplay();
     
+    int SetCameraAngle(int rotation);
+    
 public Q_SLOTS:
     void slotDisplay(const QVideoFrame &frame);
 
@@ -26,7 +28,7 @@ private:
     Ui::CFrmDisplay *ui;
     
     QVideoFrame m_VideoFrame;
-    
+    int m_Rotation;
 
 };
 
