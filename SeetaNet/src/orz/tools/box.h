@@ -33,7 +33,7 @@ namespace seeta
          * @return A list contains splited bins
          * @note Example input(0, 10, 3) returns [(0, 4), (4, 8), (8, 10)]
          */
-        std::vector<std::pair<int, int>> split_bins( int first, int second, int bins );
+        std::vector<std::pair<int, int> > split_bins( int first, int second, int bins );
 
         /**
          * get `bins` bins split set [first, second)
@@ -43,7 +43,7 @@ namespace seeta
          * @return A list contains splited bins
          * @note Example input(0, 10, 3) returns [(0, 4), (4, 8), (8, 10)]
          */
-        std::vector<std::pair<size_t, size_t>> lsplit_bins( size_t first, size_t second, size_t bins );
+        std::vector<std::pair<size_t, size_t> > lsplit_bins( size_t first, size_t second, size_t bins );
 
         std::string to_string( time_point tp, const std::string &format = "%Y-%m-%d %H:%M:%S" );
 
